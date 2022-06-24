@@ -1,4 +1,4 @@
-import { Rating, Typography } from "@mui/material";
+import { AppBar, IconButton, Rating, Typography, Box, Toolbar, Button, Menu } from "@mui/material";
 import { useState } from "react";
 
 export default function Playground() {
@@ -11,14 +11,35 @@ export default function Playground() {
     }
 
     return(<>
+
+    
+    <Box sx={{ flexGrow: 1}}>
+        <AppBar position="static">
+            <Toolbar>
+                <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+                >
+                     
+            <Menu />
+          </IconButton>
+                 
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1}}>
+                    News
+                </Typography>
+                    <Button color="inherit">login></Button>
+            </Toolbar>
+        </AppBar>
+    </Box>
     <Typography>
         Hallo Welt, Ihre Bewertung ist {value}
     </Typography>
     <Rating value={value} onChange={ratingChange} precision={0.5}>
         
-    </Rating>
-    
-    
+    </Rating>   
     
     
     </>)
