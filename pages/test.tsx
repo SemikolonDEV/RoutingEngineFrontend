@@ -10,6 +10,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import AccountMenu from '../components/AccountMenu';
 
 export default function FloatingActionButtons() {
 
@@ -47,6 +48,8 @@ export default function FloatingActionButtons() {
         </Alert>
       </Snackbar>
 
+      <AccountMenu/>
+
 
       <Box sx={{ '& > :not(style)': { m: 1 } }}>
         <Fab variant="extended" onClick={handleClick}>
@@ -69,6 +72,23 @@ export default function FloatingActionButtons() {
         <TextField id="outlined-basic" label="Startpunkt" variant="outlined" />
         <TextField id="filled-basic" label="Zielort" variant="outlined" />
       </Box>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </>
 
 
