@@ -19,25 +19,25 @@ export default function FloatingActionButtons() {
   ) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
-  
-    const [open, setOpen] = React.useState(false);
-  
-    const handleClick = () => {
-      setOpen(true);
-    };
-  
-    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-      if (reason === 'clickaway') {
-        return;
-      }
-  
-      setOpen(false);
-    };
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
 
 
-    return (
-<>
+  return (
+    <>
 
 
 
@@ -48,32 +48,32 @@ export default function FloatingActionButtons() {
       </Snackbar>
 
 
-<Box sx={{ '& > :not(style)': { m: 1 } }}>
-      <Fab variant="extended" onClick={handleClick}>
-        <NavigationIcon sx={{ mr: 1 }} />
-        Navigate
-      </Fab>
-      <Fab disabled aria-label="like">
-        <FavoriteIcon />
-      </Fab>
-    </Box>
+      <Box sx={{ '& > :not(style)': { m: 1 } }}>
+        <Fab variant="extended" onClick={handleClick}>
+          <NavigationIcon sx={{ mr: 1 }} />
+          Navigate
+        </Fab>
+        <Fab disabled aria-label="like">
+          <FavoriteIcon />
+        </Fab>
+      </Box>
 
-<Box
-component="form"
-sx={{
-  '& > :not(style)': { m: 1, width: '25ch' },
-}}
-noValidate
-autoComplete="off"
->
-<TextField id="outlined-basic" label="Startpunkt" variant="outlined" />
-<TextField id="filled-basic" label="Zielort" variant="outlined" />
-</Box>
-</>
-
-
+      <Box
+        component="form"
+        sx={{
+          '& > :not(style)': { m: 1, width: '25ch' },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        <TextField id="outlined-basic" label="Startpunkt" variant="outlined" />
+        <TextField id="filled-basic" label="Zielort" variant="outlined" />
+      </Box>
+    </>
 
 
-    );
+
+
+  );
 }
 
