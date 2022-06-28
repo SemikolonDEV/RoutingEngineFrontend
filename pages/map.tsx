@@ -12,16 +12,21 @@ export default function Map() {
 
     const targetDestination = useRef();
 
-    const NavigationClick = () => {
+    const NavigationClick = async () => {
         console.log(startDestination.current.value)
         const key = "57a00f5e-520b-4b79-b371-5e915498f01b"
-        let ghGeoencoding = new GraphHopper().Geocoding({key: key})
+        let ghGeoencoding = new GraphHopperGeocoding({key: key})
 
-        ghGeoencoding.doRequest({query: startDestination.current.value, locale: "de", limit: 1})
-            .then((json : string) => {
-                console.log(json)
+        const startJson = await ghGeoencoding.doRequest({query: startDestination.current.value, locale: "de", limit: 1})
+        const targetJson = await ghGeoencoding.doRequest({query: targetDestination.current.value, locale: "de", limit: 1})
 
-            });
+        const startPoint = startJson.hits[0].point
+        const targetPoint = targetJson.hits[0].point
+
+        let ghRouting = new GraphHopperRouting({key: key})
+
+        const result = await ghRouting.doRequest()
+
     }
 
     return (
