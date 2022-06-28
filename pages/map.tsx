@@ -30,7 +30,7 @@ export default function Map() {
 
         let ghRouting = new GraphHopper.Routing({key: key})
 
-        const routingRequestdata = {points: [[startPoint['lng'], startPoint['lat']], [targetPoint['lng'], targetPoint['lat']]], locale: 'de', profile: 'bike', elevation: true};
+        const routingRequestdata = {points: [[startPoint['lng'], startPoint['lat']], [targetPoint['lng'], targetPoint['lat']]], locale: 'de', profile: 'bike', elevation: false};
 
         const result = await ghRouting.doRequest(routingRequestdata)
 
