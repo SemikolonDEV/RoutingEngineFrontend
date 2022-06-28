@@ -32,7 +32,6 @@ export default function Map() {
                     <Favorite />
                 </Fab>
             </Box>
-
             </Paper>
             <LeafletMap></LeafletMap>
         </Box>
