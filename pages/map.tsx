@@ -12,20 +12,29 @@ export default function Map() {
 
     const targetDestination = useRef<HTMLInputElement>();
 
-    const NavigationClick = async () => {
-        console.log(startDestination.current?.value)
+    const NavigationClick = async (event : React.SyntheticEvent) => {
+        event.preventDefault();
+
+       
+
         const key = "57a00f5e-520b-4b79-b371-5e915498f01b"
-        let ghGeoencoding = new GraphHopperGeocoding({key: key})
+        let ghGeoencoding = new GraphHopper.Geocoding({key: key})
 
         const startJson = await ghGeoencoding.doRequest({query: startDestination.current?.value, locale: "de", limit: 1})
         const targetJson = await ghGeoencoding.doRequest({query: targetDestination.current?.value, locale: "de", limit: 1})
 
-        const startPoint = startJson.hits[0].point
+        const startPoint  = startJson.hits[0].point
         const targetPoint = targetJson.hits[0].point
 
-        let ghRouting = new GraphHopperRouting({key: key})
+        console.log(startPoint, targetPoint)
 
-        //const result = await ghRouting.doRequest()
+        let ghRouting = new GraphHopper.Routing({key: key})
+
+        const routingRequestdata = {points: [[startPoint['lng'], startPoint['lat']], [targetPoint['lng'], targetPoint['lat']]], locale: 'de', profile: 'bike', elevation: true};
+
+        const result = await ghRouting.doRequest(routingRequestdata)
+
+        console.log(result)
 
     }
 
@@ -38,22 +47,23 @@ export default function Map() {
                 sx={{
                     '& > :not(style)': { display: 'flex', flexDirection:'row' , m: 1, width: '25ch' },
                 }}
-                noValidate
                 autoComplete="off"
+                onSubmit={NavigationClick}
             >
-                <TextField id="outlined-basic" label="Startpunkt" inputRef={startDestination} variant="outlined" />
-                <TextField id="filled-basic" label="Zielort" inputRef={targetDestination} variant="outlined" />
+                <TextField id="outlined-basic" label="Startpunkt" required inputRef={startDestination} variant="outlined" />
+                <TextField id="filled-basic" label="Zielort" required inputRef={targetDestination} variant="outlined" />
+                <Box sx={{ '& > :not(style)': { m: 1 } }}>
+                    <Fab variant="extended" type="submit">
+                        <Navigation sx={{ mr: 1 }} />
+                        Navigate
+                    </Fab>
+                    <Fab disabled aria-label="like">
+                        <Favorite />
+                    </Fab>
+                </Box>
             </Box>
 
-            <Box sx={{ '& > :not(style)': { m: 1 } }}>
-                <Fab variant="extended" onClick={NavigationClick}>
-                    <Navigation sx={{ mr: 1 }} />
-                    Navigate
-                </Fab>
-                <Fab disabled aria-label="like">
-                    <Favorite />
-                </Fab>
-            </Box>
+            
             </Paper>
             <LeafletMap></LeafletMap>
         </Box>
