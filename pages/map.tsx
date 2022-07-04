@@ -1,7 +1,7 @@
 import { Favorite, Navigation } from "@mui/icons-material"
 import { Box, Fab, Paper, TextField } from "@mui/material"
 import dynamic from "next/dynamic"
-import { useRef } from "react";
+import { useRef, useState } from "react";
 require('graphhopper-js-api-client')
 
 export default function Map() {
@@ -12,10 +12,12 @@ export default function Map() {
 
     const targetDestination = useRef<HTMLInputElement>();
 
+    const [startCoord, setStartCoord] = useState();
+
+    const [targetCoord, setTargetCoord] = useState();
+
     const NavigationClick = async (event : React.SyntheticEvent) => {
         event.preventDefault();
-
-       
 
         const key = "57a00f5e-520b-4b79-b371-5e915498f01b"
         let ghGeoencoding = new GraphHopper.Geocoding({key: key})
@@ -26,15 +28,14 @@ export default function Map() {
         const startPoint  = startJson.hits[0].point
         const targetPoint = targetJson.hits[0].point
 
-        console.log(startPoint, targetPoint)
+        setStartCoord(startPoint)
+        setTargetCoord(targetPoint)
 
         let ghRouting = new GraphHopper.Routing({key: key})
 
         const routingRequestdata = {points: [[startPoint['lng'], startPoint['lat']], [targetPoint['lng'], targetPoint['lat']]], locale: 'de', profile: 'bike', elevation: false};
 
         const result = await ghRouting.doRequest(routingRequestdata)
-
-        console.log(result)
 
     }
 
@@ -62,11 +63,8 @@ export default function Map() {
                     </Fab>
                 </Box>
             </Box>
-
-            
             </Paper>
-            <LeafletMap></LeafletMap>
-        </Box>
-             
+            <LeafletMap startCoord={startCoord} targetCoord={targetCoord}/>
+        </Box>          
         </>)
 }
