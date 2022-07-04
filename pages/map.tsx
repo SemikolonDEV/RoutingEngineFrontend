@@ -19,7 +19,7 @@ export default function Map() {
     const NavigationClick = async (event : React.SyntheticEvent) => {
         event.preventDefault();
 
-        const key = "57a00f5e-520b-4b79-b371-5e915498f01b"
+        const key = "55f4d516-09b7-4bc0-bc8a-76a07455b883"
         let ghGeoencoding = new GraphHopper.Geocoding({key: key})
 
         const startJson = await ghGeoencoding.doRequest({query: startDestination.current?.value, locale: "de", limit: 1})

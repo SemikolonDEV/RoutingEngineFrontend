@@ -6,7 +6,7 @@ import 'lrm-graphhopper'
 const createRoutineMachineLayer = (props : any) => {
     
     const instance = L.Routing.control({
-        router: L.Routing.graphHopper('57a00f5e-520b-4b79-b371-5e915498f01b', {urlParameters: {locale: 'de', vehicle: 'bike'}}),
+        router: L.Routing.graphHopper('55f4d516-09b7-4bc0-bc8a-76a07455b883', {urlParameters: {locale: 'de', vehicle: 'bike'}}),
         waypoints: [
             L.latLng(props.startCoord['lat'],props.startCoord['lng']),
             L.latLng(props.targetCoord['lat'],props.targetCoord['lng'])
