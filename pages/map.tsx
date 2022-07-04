@@ -1,7 +1,14 @@
 import { Favorite, Navigation } from "@mui/icons-material"
-import { Box, Fab, Paper, TextField } from "@mui/material"
+import { Alert, Box, Fab, Paper, Snackbar, TextField } from "@mui/material"
 import dynamic from "next/dynamic"
 import { useRef, useState } from "react";
+import * as React from 'react';
+
+import EditIcon from '@mui/icons-material/Edit';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import NavigationIcon from '@mui/icons-material/Navigation';
+import Stack from '@mui/material/Stack';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
 require('graphhopper-js-api-client')
 
 export default function Map() {
@@ -15,6 +22,16 @@ export default function Map() {
     const [startCoord, setStartCoord] = useState();
 
     const [targetCoord, setTargetCoord] = useState();
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpen(false)
+      };
 
     const NavigationClick = async (event : React.SyntheticEvent) => {
         event.preventDefault();
@@ -37,34 +54,40 @@ export default function Map() {
 
         const result = await ghRouting.doRequest(routingRequestdata)
 
+        setOpen(true)
     }
 
     return (
         <>
-        <Box sx={{display: 'flex'}}>
-            <Paper sx={{zIndex:'1', margin: '5px'}}>
-            <Box
-                component="form"
-                sx={{
-                    '& > :not(style)': { display: 'flex', flexDirection:'row' , m: 1, width: '25ch' },
-                }}
-                autoComplete="off"
-                onSubmit={NavigationClick}
-            >
-                <TextField id="outlined-basic" label="Startpunkt" required inputRef={startDestination} variant="outlined" />
-                <TextField id="filled-basic" label="Zielort" required inputRef={targetDestination} variant="outlined" />
-                <Box sx={{ '& > :not(style)': { m: 1 } }}>
-                    <Fab variant="extended" type="submit">
-                        <Navigation sx={{ mr: 1 }} />
-                        Navigate
-                    </Fab>
-                    <Fab disabled aria-label="like">
-                        <Favorite />
-                    </Fab>
-                </Box>
-            </Box>
-            </Paper>
-            <LeafletMap startCoord={startCoord} targetCoord={targetCoord}/>
-        </Box>          
+            <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    Route wurde berechnet
+                </Alert>
+            </Snackbar>
+            <Box sx={{display: 'flex'}}>
+                <Paper sx={{zIndex:'1', margin: '5px'}}>
+                    <Box
+                        component="form"
+                        sx={{
+                            '& > :not(style)': { display: 'flex', flexDirection:'row' , m: 1, width: '25ch'  },
+                        }}
+                        autoComplete="off"
+                        onSubmit={NavigationClick}
+                    >
+                        <TextField id="outlined-basic" label="Startpunkt" required inputRef={startDestination} variant="outlined" />
+                        <TextField id="filled-basic" label="Zielort" required inputRef={targetDestination} variant="outlined" />
+                        <Box sx={{ '& > :not(style)': { m: 1 } }}>
+                            <Fab variant="extended" type="submit">
+                                <Navigation sx={{ mr: 1 }} />
+                                Navigate
+                            </Fab>
+                            <Fab disabled aria-label="like">
+                                <Favorite />
+                            </Fab>
+                        </Box>
+                    </Box>
+                </Paper>
+                <LeafletMap startCoord={startCoord} targetCoord={targetCoord}/>
+            </Box>          
         </>)
 }
