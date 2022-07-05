@@ -3,7 +3,7 @@ import { createControlComponent } from '@react-leaflet/core'
 import 'leaflet-routing-machine'
 import 'lrm-graphhopper'
 
-const createRoutineMachineLayer = (props : any) => {
+const createRoutineMachineLayer = (props) => {
     
     const instance = L.Routing.control({
         router: L.Routing.graphHopper('55f4d516-09b7-4bc0-bc8a-76a07455b883', {urlParameters: {locale: 'de', vehicle: 'bike', instructions: false}}),

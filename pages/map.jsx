@@ -1,23 +1,19 @@
 import { Favorite, Navigation } from "@mui/icons-material"
 import { Alert, Box, Fab, Paper, Snackbar, TextField } from "@mui/material"
 import dynamic from "next/dynamic"
-import { useRef, useState } from "react";
+import { useRef, useState , useCallback} from "react";
 import * as React from 'react';
 
-import EditIcon from '@mui/icons-material/Edit';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import NavigationIcon from '@mui/icons-material/Navigation';
-import Stack from '@mui/material/Stack';
-import MuiAlert, { AlertProps } from '@mui/material/Alert';
+
 require('graphhopper-js-api-client')
 
 export default function Map() {
 
     const LeafletMap = dynamic(() => import("../components/LeafletMap"), { ssr: false })
 
-    const startDestination = useRef<HTMLInputElement>();
+    const startDestination = useRef();
 
-    const targetDestination = useRef<HTMLInputElement>();
+    const targetDestination = useRef();
 
     const [startCoord, setStartCoord] = useState();
 
@@ -25,15 +21,15 @@ export default function Map() {
 
     const [open, setOpen] = React.useState(false);
 
-    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    const handleClose = useCallback( (event, reason) => {
         if (reason === 'clickaway') {
           return;
         }
     
         setOpen(false)
-      };
+      }, [open]);
 
-    const NavigationClick = async (event : React.SyntheticEvent) => {
+    const NavigationClick = async (event ) => {
         event.preventDefault();
 
         const key = "55f4d516-09b7-4bc0-bc8a-76a07455b883"
