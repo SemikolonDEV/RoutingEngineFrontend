@@ -1,8 +1,8 @@
 import { MapContainer, Marker, Popup, TileLayer, useMap, ZoomControl } from "react-leaflet";
-import 'leaflet/dist/leaflet.css';
+import RoutingMachine from "./RoutingMachine";
 
-export default function LeafletMap() {
 
+export default function LeafletMap({startCoord, targetCoord} : {startCoord:any, targetCoord:any}) {
 
     return (
 
@@ -10,6 +10,13 @@ export default function LeafletMap() {
              <TileLayer maxZoom={19} attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
             <ZoomControl position="bottomright" zoomInText="✈️" zoomOutText="🚀"/>
+            
+            {(targetCoord !== undefined && startCoord !== undefined ) && 
+            <>
+                <RoutingMachine startCoord={startCoord} targetCoord={targetCoord}/>
+            </>
+            }
+            
         </MapContainer>
     )
 }
