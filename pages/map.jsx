@@ -74,9 +74,6 @@ export default function Map() {
                 travelTime: minutes
             })
         }).then(response => console.log(response.json()))
-
-
-
     }
 
     return (
