@@ -19,7 +19,7 @@ const Home: NextPage = () => {
           Herzlich Willkommen bei der Scoo Tech GmbH
         </h1>
 
-        <Image src="escooter.jpg"></img>
+        <Image src="/escooter.jpg" width={"630"} height={"400"}></Image>
 
 
         <div className={styles.grid}>
