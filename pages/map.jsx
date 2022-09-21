@@ -31,7 +31,7 @@ export default function Map() {
         setOpen(false)
       }, [open]);
 
-    const NavigationClick = async (event ) => {
+    const NavigationClick = async (event) => {
         event.preventDefault();
 
         const key = "55f4d516-09b7-4bc0-bc8a-76a07455b883"
@@ -54,13 +54,15 @@ export default function Map() {
 
         const minutes = Math.ceil(result.paths[0].time / 60000)
 
+        // Price is minutes * 0.15 + 1 Euro for Unlock
+        // Round with Epsilon * 100 / 100 is for 2 decimal places
         const price = Math.round(((minutes * 0.15 + 1) + Number.EPSILON) *100) / 100;
 
         setPrice(price)
 
         setOpen(true)
 
-        // Send Log to Backend
+        // Send Log to Backend and print Response to Developer Console
         fetch("http://localhost:5257/api/Logging", {
             method: "POST",
             headers: {
@@ -104,6 +106,7 @@ export default function Map() {
                                 <Favorite />
                             </Fab>
                         </Box>
+                        // Show Price when not null
                         {price != null &&  <Typography>Der Fahrpreis beträgt: {price.toFixed(2).toString().replace(".", ",")} €</Typography>}
                     </Box>
                 </Paper>

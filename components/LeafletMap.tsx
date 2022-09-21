@@ -1,4 +1,4 @@
-import { MapContainer, Marker, Popup, TileLayer, useMap, ZoomControl } from "react-leaflet";
+import { MapContainer, TileLayer, ZoomControl } from "react-leaflet";
 import RoutingMachine from "./RoutingMachine";
 
 

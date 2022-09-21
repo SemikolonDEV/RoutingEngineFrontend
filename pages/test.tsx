@@ -72,23 +72,6 @@ export default function FloatingActionButtons() {
         <TextField id="outlined-basic" label="Startpunkt" variant="outlined" />
         <TextField id="filled-basic" label="Zielort" variant="outlined" />
       </Box>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </>
 
 
